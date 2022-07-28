@@ -25,6 +25,12 @@ export function UploadForm(): JSX.Element {
     setFile(files[0]);
   }, []);
 
+  const onChangeFee = useCallback((v: number) => {
+    if (v >= 0 && v <= 10000) {
+      setSellerFeeBasisPoints(v);
+    }
+  }, []);
+
   const onSubmit = useCallback(() => {
     if (!file) {
       alert('Must select one image.');
@@ -78,10 +84,8 @@ export function UploadForm(): JSX.Element {
           max={10000}
           step={1}
           id='nft-fee-basis'
-          defaultValue={500}
-          onChange={(e) =>
-            setSellerFeeBasisPoints(e.currentTarget.valueAsNumber)
-          }
+          value={sellerFeeBasisPoints}
+          onChange={(e) => onChangeFee(e.currentTarget.valueAsNumber)}
           required
         />
       </div>
